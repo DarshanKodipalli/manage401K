@@ -1,0 +1,76 @@
+<div>
+  <div class="example-viewer">
+      <div class="docs-example-viewer-wrapper">
+        <div class="docs-example-viewer-title">
+          <div class="docs-example-viewer-title-spacer">
+            Company Admin
+          </div>
+        </div>
+        <div class="docs-example-viewer-source  art-pad10">
+          <div class="art-flex-container">
+            <div class="example-viewer art-flex-form3">
+                <div class="docs-example-viewer-wrapper">
+                  <div class="docs-example-viewer-title">
+                    <div class="docs-example-viewer-title-spacer">
+                      Enter Employee Details
+                    </div>
+                  </div>
+                  <div class="docs-example-viewer-source">
+                      <form>
+                          <mat-grid-list cols="1" rowHeight="100px">
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Employee Name" [(ngModel)]="employeeData.name" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="SSN" [(ngModel)]="employeeData.ssn" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+
+                            <mat-grid-tile>
+                              <mat-form-field style="width:90%;">
+                                <input matInput ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" placeholder="Enter Address.." (onAddressChange)="handleAddressChange1($event)"/>
+                              </mat-form-field>
+                            </mat-grid-tile>
+
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Contact Number" [(ngModel)]="employeeData.number" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Email ID" [(ngModel)]="employeeData.email" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Department" [(ngModel)]="employeeData.dept" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+
+                            <mat-grid-tile>
+                              <mat-form-field style="width:90%;">
+                                <input matInput placeholder="Salary" [(ngModel)]="employeeData.salary" [ngModelOptions]="{standalone: true}">
+                              </mat-form-field>
+                            </mat-grid-tile>
+                          
+                            <mat-grid-tile>
+                              <button class="btn btn-primary" (click)="addEmployee(employeeData)" style="float: right;">
+                                  Add Employee
+                              </button>
+                            </mat-grid-tile>                                                        
+                          </mat-grid-list>
+                      </form>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

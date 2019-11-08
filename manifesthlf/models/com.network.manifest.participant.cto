@@ -1,0 +1,42 @@
+
+namespace com.network.manifest.participant
+
+abstract participant Member{
+  o String userName
+  o String email
+  o String phoneNumber
+  o String address
+  o String zip
+}
+
+participant CompanyAdmin identified by companyAdminCIN extends Member {
+  o String companyAdminCIN
+  o String comapanyName
+  o String companyCIN
+}
+
+participant Employee identified by employeeSSN extends Member {
+  o String employeeSSN
+  o String comapanyName
+}
+
+transaction UpdateCompany {
+  o String userName
+  o String email
+  o String phoneNumber
+  o String address
+  o String zip
+  o String companyAdminCIN
+  o String comapanyName
+  o String companyCIN
+}
+
+transaction UpdateEmployee {
+  o String userName
+  o String email
+  o String phoneNumber
+  o String address
+  o String zip
+  o String employeeSSN
+  o String comapanyName
+}

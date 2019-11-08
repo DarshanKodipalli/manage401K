@@ -1,0 +1,80 @@
+<div>
+  <div class="example-viewer">
+      <div class="docs-example-viewer-wrapper">
+        <div class="docs-example-viewer-title">
+          <div class="docs-example-viewer-title-spacer">
+            Application Admin
+          </div>
+        </div>
+        <div class="docs-example-viewer-source  art-pad10">
+          <div class="art-flex-container">
+            <div class="example-viewer art-flex-form3">
+                <div class="docs-example-viewer-wrapper">
+                  <div class="docs-example-viewer-title">
+                    <div class="docs-example-viewer-title-spacer">
+                      Enter Company Details
+                    </div>
+                  </div>
+                  <div class="docs-example-viewer-source">
+                      <form>
+                          <mat-grid-list cols="1" rowHeight="100px">
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Company Name" [(ngModel)]="companyData.companyName" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Company Identification Number" [(ngModel)]="companyData.cin" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+
+                            <mat-grid-tile>
+                              <mat-form-field style="width:90%;">
+                                <input matInput ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" placeholder="Enter Address.." (onAddressChange)="handleAddressChange1($event)"/>
+                              </mat-form-field>
+                            </mat-grid-tile>
+
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Company ZIP" [(ngModel)]="companyData.zip" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Company Owner" [(ngModel)]="companyData.owner" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Industry Type" [(ngModel)]="companyData.industry" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Primary Contact Number" [(ngModel)]="companyData.number" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            </mat-grid-tile>
+
+
+                            <mat-grid-tile>
+                                <mat-form-field style="width:90%;">
+                                  <input matInput placeholder="Primary Contact Email" [(ngModel)]="companyData.email" [ngModelOptions]="{standalone: true}">
+                                </mat-form-field>
+                            <button class="btn btn-primary" (click)="addCompany(companyData)" style="float: right;">
+                                Add Company
+                            </button>
+                            </mat-grid-tile>                                                        
+                          </mat-grid-list>
+                      </form>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

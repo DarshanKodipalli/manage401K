@@ -1,0 +1,242 @@
+<div [hidden]="allList">
+<div class="example-viewer">
+      <div class="docs-example-viewer-wrapper">
+        <div class="docs-example-viewer-title">
+          <div class="docs-example-viewer-title-spacer">
+            Employee Search
+          </div>
+        </div>
+        <div class="docs-example-viewer-source">
+            
+            <form class="art-pad30">
+                <mat-grid-list cols="5" rowHeight="100px">
+                    <mat-grid-tile>
+                        <mat-form-field style="width:90%;">
+                            <input matInput placeholder="Employee Name" [(ngModel)]="searchParams.companyName" [ngModelOptions]="{standalone: true}" value="">
+                          </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field style="width:90%;">
+                            <input matInput placeholder="Number" [(ngModel)]="searchParams.number" [ngModelOptions]="{standalone: true}" value="">
+                          </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field style="width:90%;">
+                            <input matInput placeholder="Department" [(ngModel)]="searchParams.dept" [ngModelOptions]="{standalone: true}" value="">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field style="width:90%;">
+                            <input matInput placeholder="SSN" [(ngModel)]="searchParams.ssn" [ngModelOptions]="{standalone: true}" value="">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field style="width:90%;">
+                            <input matInput placeholder="Salary" [(ngModel)]="searchParams.salary" [ngModelOptions]="{standalone: true}" value="">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                  </mat-grid-list>  
+                  <button mat-stroked-button color="primary" (click)="invoiceSearch(searchParams)">Search</button>            
+              </form>
+        </div>
+      </div>
+  </div>
+  <div class="example-viewer">
+      <div class="docs-example-viewer-wrapper">
+        <div class="docs-example-viewer-title">
+          <div class="docs-example-viewer-title-spacer">
+            All Employees Grid
+          </div>
+        </div>
+        <div class="docs-example-viewer-source">
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                                  (change)="$event ? selection.toggle(row) : null"
+                                  [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                    <td mat-cell *matCellDef="let element"><a (click)="viewSignedInvoice(element.e_name)"></a> {{element.e_name}} </td>
+                  </ng-container>
+                            
+                <!-- Amount Column -->
+                <ng-container matColumnDef="company">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Company </th>
+                  <td mat-cell *matCellDef="let element"> {{element.e_company_name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="company_id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Company ID </th>
+                  <td mat-cell *matCellDef="let element"> {{element.e_company_id}} </td>
+                </ng-container>
+
+              
+                <!-- Seller ID Column -->
+                <ng-container matColumnDef="number">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Contribution (401K) </th>
+                  <td mat-cell *matCellDef="let element"> {{element.e_401K_contribution}} &nbsp; % </td>
+                </ng-container>
+              
+                <!-- Banker ID Column -->
+                <ng-container matColumnDef="email">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                  <td mat-cell *matCellDef="let element"> {{element.e_contact_email}} </td>
+                </ng-container>
+
+                <!-- Created Date Column -->
+                <ng-container matColumnDef="department">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+                  <td mat-cell *matCellDef="let element"> {{element.e_dept}} </td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="salary">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Salary </th>
+                  <td mat-cell *matCellDef="let element"> $ {{element.e_salary}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="contri401K">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> 401K(per year) </th>
+                  <td mat-cell *matCellDef="let element"> $ {{element.e_contri401K}} </td>
+                </ng-container>
+
+              
+                <!-- Invoice Number Column -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                (click)="selection.toggle(row)" (dblclick)="addTab(row)">
+                </tr>
+              </table>
+              <!--(click)="selection.toggle(row)"-->
+            <mat-paginator class="art-boxshadow" [length]="100"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+            <mat-toolbar style="position:relative;z-index:0;width:60%;height:56px;margin-top:-56px;margin-left:10px;background-color:#fff;">
+            
+                <button mat-button [matMenuTriggerFor]="actions">Actions<mat-icon class="example-icon">arrow_drop_down</mat-icon></button>
+
+                <mat-menu #actions="matMenu">
+                  <button mat-menu-item (click)="createInvoiceDirectly()">View More Details</button>
+                  <button mat-menu-item >Cancel Ride</button>
+                </mat-menu>              
+              </mat-toolbar>
+        </div>
+      </div>
+  </div>
+</div>
+<div [hidden]="!allList">
+  <div class="example-viewer">
+    <div class="docs-example-viewer-wrapper">
+      <div class="docs-example-viewer-title">
+        <div class="docs-example-viewer-title-spacer">
+          Employee Search
+        </div>
+      </div>
+      <div class="docs-example-viewer-source">
+          
+        <form class="art-pad30">
+          <mat-grid-list cols="3" rowHeight="100px">
+              <mat-grid-tile>
+                  <mat-form-field style="width:90%;">
+                      <input matInput placeholder="Employee Name" [(ngModel)]="ename" style="color: black"  [disabled]="true" [ngModelOptions]="{standalone: true}" value="">
+                    </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                  <mat-form-field style="width:90%;">
+                      <input matInput placeholder="Employeee SSN" [(ngModel)]="essn" [disabled]="true" style="color: black"  [ngModelOptions]="{standalone: true}" value="">
+                    </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                  <mat-form-field style="width:90%;">
+                      <input matInput placeholder="Employee Address" [(ngModel)]="eaddress" [disabled]="true" style="color: black"  [ngModelOptions]="{standalone: true}" value="">
+                  </mat-form-field>
+              </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="3" rowHeight="100px">
+            <mat-grid-tile>
+                <mat-form-field style="width:90%;">
+                    <input matInput placeholder="Company Name" [(ngModel)]="ecompany" [disabled]="true" style="color: black"  [ngModelOptions]="{standalone: true}" value="">
+                  </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field style="width:90%;">
+                    <input matInput placeholder="Company ID " [(ngModel)]="ecompanyid" [disabled]="true" style="color: black"  [ngModelOptions]="{standalone: true}" value="">
+                  </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field style="width:90%;">
+                    <input matInput placeholder="Department" [(ngModel)]="edepartment" [disabled]="true" style="color: black"  [ngModelOptions]="{standalone: true}" value="">
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list cols="2" rowHeight="100px">
+          <mat-grid-tile>
+              <mat-form-field style="width:90%;">
+                  <input matInput placeholder="Employee Contact Number" [(ngModel)]="enumber" [disabled]="true" style="color: black"  [ngModelOptions]="{standalone: true}" value="">
+                </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+              <mat-form-field style="width:90%;">
+                  <input matInput placeholder="Employee Contact Email" [(ngModel)]="eemail" [disabled]="true" style="color: black"  [ngModelOptions]="{standalone: true}" value="">
+                </mat-form-field>
+          </mat-grid-tile>
+      </mat-grid-list>            
+        </form>
+      </div>
+    </div>
+</div>
+<div class="example-viewer">
+    <div class="docs-example-viewer-wrapper">
+      <div class="docs-example-viewer-title">
+        <div class="docs-example-viewer-title-spacer">
+          All Employees Grid
+        </div>
+      </div>
+      <div class="docs-example-viewer-source">
+          <form class="art-pad30">
+              <mat-grid-list cols="2" rowHeight="100px">
+                  <mat-grid-tile>
+                      <mat-form-field style="width:90%;">
+                          <input matInput placeholder="Annual Income (in $)" [(ngModel)]="esalary" style="color: black" [disabled]="true" [ngModelOptions]="{standalone: true}" value="">
+                        </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile>
+                      <mat-form-field style="width:90%;">
+                          <input matInput placeholder="Monthly Income " [(ngModel)]="esalarymonthly" [disabled]="true" style="color: black" [ngModelOptions]="{standalone: true}" value="">
+                        </mat-form-field>
+                  </mat-grid-tile>
+              </mat-grid-list>
+              <mat-grid-list cols="1" rowHeight="100px">
+  
+                  <mat-grid-tile>
+                      <mat-form-field style="width:90%;">
+                          <input matInput placeholder="401(K) Contribution (in %)" [(ngModel)]="e401k" style="color: black"  [ngModelOptions]="{standalone: true}" value="">
+                        </mat-form-field>
+                        <button class="btn btn-success" (click)="updateRecord()">
+                            Update 401(K) %
+                          </button>    
+                        </mat-grid-tile>
+              </mat-grid-list>
+            </form>        
+      </div>
+    </div>
+</div>
+
+</div>
+<!--
+  https://blog.angular-university.io/angular-material-data-table/
+  https://github.com/angular/material2/tree/master/src/material-examples/paginator-configurable
+-->
