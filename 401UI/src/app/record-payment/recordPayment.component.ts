@@ -110,15 +110,16 @@ export class RecordPaymentComponent implements OnInit {
       paymentObj.e_name = this.ename;
       paymentObj.m_salary_monthly = this.esalarymonthly;
       paymentObj.m_contribution_to_401k = this.esalary401kmonthly;
+      paymentObj.e401k = this.e401k;
       console.log(paymentObj);
       this.http.recordPayment(paymentObj).subscribe(
         (response)=>{
           console.log(response.json());
           Swal(
-            'Payment Recorded!',
-            'Success'
+            'Payment Recorded, TransactionId: ',
+            response.json().transactionId
           ).then((newResult)=>{
-            //  this.route.navigate(['/dashboard']);
+             this.route.navigate(['/allPayments']);
           })   
         },(error)=>{
           console.log(error);

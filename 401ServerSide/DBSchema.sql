@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS monthly_wages(
     m_created_by VARCHAR(512) NOT NULL,
     e_email VARCHAR(512) NOT NULL,
     e_name VARCHAR(512) NOT NULL,
+    blockchain_transaction_id VARCHAR(512) NOT NULL,
     m_status int(11) NOT NULL
 );
 

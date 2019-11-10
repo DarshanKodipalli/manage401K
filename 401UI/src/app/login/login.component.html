@@ -3,7 +3,7 @@
       <div class="login-wrap">
           <div class="login-html">
             <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label style="color: black" for="tab-1" class="tab">Sign In</label>
-            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" style="color: black" class="tab">Sign Up</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" style="color: black" class="tab"></label>
             <div class="login-form">
               <div [hidden]="!otpBoolean" class="sign-in-htm">
                 <div class="group">
@@ -16,7 +16,7 @@
                 </div>
                 <div class="group">
                   <label for="pass" class="label" style="color: black">Role</label>
-                    <select  class="input" [(ngModel)]="loginData.role" [ngModelOptions]="{standalone: true}">
+                    <select style="color: black" class="input" [(ngModel)]="loginData.role" [ngModelOptions]="{standalone: true}">
                       <option style="color: black" value="admin">Application Admin</option>
                       <option style="color: black" value="company">Company Representative</option>
                       <option style="color: black" value="employee">Employee</option>

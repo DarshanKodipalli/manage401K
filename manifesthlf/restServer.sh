@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export COMPOSER_CARD=admin@manifesthlf10
+export COMPOSER_CARD=admin@manifesthlf11
 
 printenv | grep ^COMPOSER_CARD
 

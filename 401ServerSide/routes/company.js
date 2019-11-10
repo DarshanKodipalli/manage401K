@@ -12,4 +12,6 @@ router.post('/addEmployee', companyController.addEmployee);
 router.post('/getEmployees', companyController.getAllEmployees);
 router.post('/makePayment', companyController.makeMonthlyPayment);
 router.post('/getAllPayments', companyController.getMonthlyPaymentsMade);
+router.post('/usersContri', companyController.getUsersContribution);
+router.post('/getDeptEmployeeLists', companyController.getDeptEmployeeLists);
 module.exports = router;

@@ -1,69 +1,97 @@
 <div class="example-viewer">
-    <div class="docs-example-viewer-wrapper">
-      <div class="docs-example-viewer-title">
-        <div class="docs-example-viewer-title-spacer">
-          Dashboard
-        </div>
-      </div>
-      <div class="docs-example-viewer-source">
-        <div class="example-viewer" style="display:flex;flex-direction:row;flex-wrap: wrap;justify-content: flex-start;">
-            <div class="docs-example-viewer-wrapper" style="width:49%;height: 49%;">
-              <div class="docs-example-viewer-title">
-                <div class="docs-example-viewer-title-spacer">
-                  Companies
-                </div>
-              </div>
-              <div class="docs-example-viewer-source">
-                  <mat-progress-bar *ngIf="show" color="accent" mode="indeterminate"></mat-progress-bar>
-                  <mat-spinner *ngIf="show" color="accent" diameter="15" style="z-index:2;position:absolute;"></mat-spinner>
-                  <div *ngIf="chart">
-                    <canvas id="canvas">{{ chart }}</canvas>
-                  </div>
-              </div>
-            </div>
-            <div class="docs-example-viewer-wrapper" style="width:49%;height: 49%;">
-              <div class="docs-example-viewer-title">
-                <div class="docs-example-viewer-title-spacer">
-                  Companies in a Locaion
-                </div>
-              </div>
-              <div class="docs-example-viewer-source">
-                  <mat-progress-bar *ngIf="show" color="accent" mode="indeterminate"></mat-progress-bar>
-                  <mat-spinner *ngIf="show" color="accent" diameter="15" style="z-index:2;position:absolute;"></mat-spinner>        
-                <div *ngIf="chart">
-                  <canvas id="canvas1">{{ chart }}</canvas>
-                </div>
-              </div>
-            </div>
-            <div class="docs-example-viewer-wrapper" style="width:49%;height: 49%;">
-              <div class="docs-example-viewer-title">
-                <div class="docs-example-viewer-title-spacer">
-                  Employee's in a Company
-                </div>
-              </div>
-              <div class="docs-example-viewer-source">
-                  <mat-progress-bar *ngIf="show" color="accent" mode="indeterminate"></mat-progress-bar>
-                  <mat-spinner *ngIf="show" color="accent" diameter="15" style="z-index:2;position:absolute;"></mat-spinner>        
-                <div *ngIf="chart">
-                  <canvas id="canvas3">{{ chart }}</canvas>
-                </div>
-              </div>
-            </div>
-            <div class="docs-example-viewer-wrapper" style="width:49%;height: 49%;">
-              <div class="docs-example-viewer-title">
-                <div class="docs-example-viewer-title-spacer">
-                  Company Industry
-                </div>
-              </div>
-              <div class="docs-example-viewer-source">
-                  <mat-progress-bar *ngIf="show" color="accent" mode="indeterminate"></mat-progress-bar>
-                  <mat-spinner *ngIf="show" color="accent" diameter="15" style="z-index:2;position:absolute;"></mat-spinner>        
-                <div *ngIf="chart">
-                  <canvas id="canvas4">{{ chart }}</canvas>
-                </div>
-              </div>
-            </div>
-        </div>
+  <div class="docs-example-viewer-wrapper">
+    <div class="docs-example-viewer-title">
+      <div class="docs-example-viewer-title-spacer">
+        Dashboard
       </div>
     </div>
+    <div class="docs-example-viewer-source">
+      <div class="example-viewer" style="display:flex;flex-direction:row;flex-wrap: wrap;justify-content: flex-start;">
+          <div class="docs-example-viewer-wrapper" style="width:32.5%;">
+            <div class="docs-example-viewer-title">
+              <div class="docs-example-viewer-title-spacer">
+                Companies
+              </div>
+            </div>
+            <div class="docs-example-viewer-source">
+                <mat-progress-bar *ngIf="show" color="accent" mode="indeterminate"></mat-progress-bar>
+                <mat-spinner *ngIf="show" color="accent" diameter="20" style="z-index:2;position:absolute;"></mat-spinner>
+                <div *ngIf="chart">
+                  <canvas id="canvas">{{ chart }}</canvas>
+                </div>
+            </div>
+          </div>
+          <div class="docs-example-viewer-wrapper" style="width:32.5%;">
+            <div class="docs-example-viewer-title">
+              <div class="docs-example-viewer-title-spacer">
+                Companies in a particular Location
+              </div>
+            </div>
+            <div class="docs-example-viewer-source">
+                <mat-progress-bar *ngIf="show" color="accent" mode="indeterminate"></mat-progress-bar>
+                <mat-spinner *ngIf="show" color="accent" diameter="20" style="z-index:2;position:absolute;"></mat-spinner>        
+              <div *ngIf="chart">
+                <canvas id="canvas1">{{ chart }}</canvas>
+              </div>
+            </div>
+          </div>
+          <div class="docs-example-viewer-wrapper" style="width:32.5%;">
+            <div class="docs-example-viewer-title">
+              <div class="docs-example-viewer-title-spacer">
+                Employees in a Company
+              </div>
+            </div>
+            <div class="docs-example-viewer-source">
+              <mat-progress-bar *ngIf="show" color="accent" mode="indeterminate"></mat-progress-bar>
+              <mat-spinner *ngIf="show" color="accent" diameter="20" style="z-index:2;position:absolute;"></mat-spinner>        
+            <div *ngIf="chart">
+              <canvas id="canvas2">{{ chart }}</canvas>
+            </div>
+            </div>
+          </div>
+          <div class="docs-example-viewer-wrapper" style="width:32.5%;">
+            <div class="docs-example-viewer-title">
+              <div class="docs-example-viewer-title-spacer">
+                Industry Type
+              </div>
+            </div>
+            <div class="docs-example-viewer-source">
+                <mat-progress-bar *ngIf="show" color="accent" mode="indeterminate"></mat-progress-bar>
+                <mat-spinner *ngIf="show" color="accent" diameter="20" style="z-index:2;position:absolute;"></mat-spinner>        
+              <div *ngIf="chart">
+                <canvas id="canvas3">{{ chart }}</canvas>
+              </div>
+            </div>
+          </div>
+          <div class="docs-example-viewer-wrapper" style="width:32.5%;">
+            <div class="docs-example-viewer-title">
+              <div class="docs-example-viewer-title-spacer">
+                Total Contributions towards 401K
+              </div>
+            </div>
+            <div class="docs-example-viewer-source">
+                <mat-progress-bar *ngIf="show" color="accent" mode="indeterminate"></mat-progress-bar>
+                <mat-spinner *ngIf="show" color="accent" diameter="20" style="z-index:2;position:absolute;"></mat-spinner>        
+              <div *ngIf="chart">
+                <canvas id="canvas4">{{ chart }}</canvas>
+              </div>
+            </div>
+          </div>
+          <div class="docs-example-viewer-wrapper" style="width:32.5%;">
+            <div class="docs-example-viewer-title">
+              <div class="docs-example-viewer-title-spacer">
+                Total Payments Made
+              </div>
+            </div>
+            <div class="docs-example-viewer-source">
+                <mat-progress-bar *ngIf="show" color="accent" mode="indeterminate"></mat-progress-bar>
+                <mat-spinner *ngIf="show" color="accent" diameter="20" style="z-index:2;position:absolute;"></mat-spinner>
+                <div *ngIf="chart">
+                  <canvas id="canvas5">{{ chart }}</canvas>
+                </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
 </div>

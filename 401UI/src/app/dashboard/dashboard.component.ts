@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../services/weather.service';
 import { Chart } from 'chart.js';
 import { AppComponent } from '../app.component';
+import { RestService } from '../services/rest.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,42 @@ export class DashboardComponent implements OnInit {
   chart = [];
   show:boolean = true;
 
-  constructor(private _service: WeatherService, private app: AppComponent) { }
+  public labelsList:any = [];
+  public valuesList:any = [];
+  public deptLable:any = [];
+  public deptEmpCount:any = []
+  constructor(private _service: WeatherService, private app: AppComponent,private http: RestService) { 
+    this.http.getDashboardPaymentData({companyName:JSON.parse(localStorage.getItem("login")).companyName}).subscribe(
+      (response)=>{
+        var dataList = response.json().data;
+        var keyArray= [];
+        var valueArray = [];
+        dataList.map(function(dataSet){
+          keyArray.push(dataSet.e_name);
+          valueArray.push(dataSet.contri);
+        })
+        this.labelsList = keyArray;
+        this.valuesList = valueArray;
+        this.http.getDeptEmployeeLists({companyName:JSON.parse(localStorage.getItem("login")).companyName}).subscribe(
+          (response)=>{
+            var dataList1 = response.json().data;
+            var keyArray= [];
+            var valueArray = [];
+            dataList1.map(function(dataSet){
+              keyArray.push(dataSet.e_dept);
+              valueArray.push(dataSet.count);
+            })
+            this.deptLable = keyArray;
+            this.deptEmpCount = valueArray;
+          },(error)=>{
+            console.log(error);
+          }
+        )              
+      },(error)=>{
+        console.log(error);
+      }
+    )          
+  }
   
   ngAfterViewInit(){
     
@@ -108,15 +144,12 @@ export class DashboardComponent implements OnInit {
           type: 'doughnut',
           data: {
             datasets: [{
-                data: [30, 70],
+                data: this.deptEmpCount,
                 backgroundColor: ['#F79F79','#F7D08A','#E3F09B','#87B6A7', '#5B5941']
             }],
         
             // These labels appear in the legend and in the tooltips when hovering different arcs
-            labels: [
-                'Source',
-                'Destination'
-            ]
+            labels: this.deptLable
         },
           options: {
           }
@@ -125,17 +158,12 @@ export class DashboardComponent implements OnInit {
           type: 'doughnut',
           data: {
             datasets: [{
-                data: [30, 50, 10, 100],
+                data: this.valuesList,
                 backgroundColor: ['#F79F79','#F7D08A','#E3F09B','#87B6A7', '#5B5941']
             }],
         
             // These labels appear in the legend and in the tooltips when hovering different arcs
-            labels: [
-                'Tim',
-                'Steve',
-                'John',
-                'Abdul'
-            ]
+            labels: this.labelsList;
         },
           options: {
           }

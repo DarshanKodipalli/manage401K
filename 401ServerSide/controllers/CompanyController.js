@@ -5,6 +5,9 @@ var cryptoUtilities = require("../utils/cryptoUtil");
 var moment = require('moment');
 var nodemailer = require('nodemailer');
 
+const BusinessNetworkConnection = require('composer-client').BusinessNetworkConnection;
+const namespace = "com.network.manifest.assets";
+
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -235,8 +238,50 @@ exports.makeMonthlyPayment = async function(request,response){
 	try{
 		appConfig.con.query(makeMonthlyPayment, function(error, fetchResult){
 			if(!error){
-				console.log(fetchResult);
-				response.send({message:"Payment Recorded!", status:1});
+				console.log(fetchResult.insertId);
+				var blockchainObject = {};
+				blockchainObject.$class = "com.network.manifest.assets.makeMonthlyPayment";
+				var paymentId = request.body.m_company_name+"_"+ Math.floor(100000 + Math.random() * 900000)+" ";
+
+				let businessNetworkConnection = new BusinessNetworkConnection();
+				let transactionName = "makeMonthlyPayment";
+			
+				try{
+					businessNetworkConnection.connect("admin@manifesthlf11")
+					.then((connect)=>{
+						console.log("Connected to Blockchain");
+						const bnDef = businessNetworkConnection.getBusinessNetwork();
+						const factory = bnDef.getFactory();
+						let transaction = factory.newTransaction(namespace, transactionName);
+						transaction.setPropertyValue('paymentId', paymentId);
+						transaction.setPropertyValue('salaryDeposited', request.body.m_salary_monthly);
+						transaction.setPropertyValue('contibution401K', parseFloat(request.body.m_contribution_to_401k));
+						transaction.setPropertyValue('contibutionMargin', request.body.e401k);
+				
+						businessNetworkConnection.submitTransaction(transaction)
+						.then((transactionSubmitted)=>{
+							console.log("Transaction Submitted");
+							businessNetworkConnection.disconnect()
+							.then((disconnected)=>{
+								console.log('Business network Disconnected!');
+								let transactionId = transaction.transactionId;
+								console.log("transactionId: ");	
+								console.log(transactionId+"");
+								updateMonthlyWagesStatement = "Update manage401K.monthly_wages set blockchain_transaction_id = '"+transactionId+"' where m_id = "+fetchResult.insertId+";";	
+								console.log(updateMonthlyWagesStatement)
+								appConfig.con.query(updateMonthlyWagesStatement, function(error, fetchResult){
+									if(!error){
+										response.send({message:"Payment Recorded!", status:1, transactionId:transactionId});								
+									}else{
+										console.log(error)
+									}
+								})		
+							})
+						})	
+					});	
+				}catch(error){
+					console.log(error);
+				}			
 			}
 		})
 	}catch(error){
@@ -244,14 +289,69 @@ exports.makeMonthlyPayment = async function(request,response){
 	}			
 }
 
+var hlfMakeMonthlyPayments = async function(paymentObj){
+	let businessNetworkConnection = new BusinessNetworkConnection();
+	let transactionName = "makeMonthlyPayment";
+
+	try{
+		await businessNetworkConnection.connect("admin@manifesthlf11");
+		const bnDef = businessNetworkConnection.getBusinessNetwork();
+		const factory = bnDef.getFactory();
+		let transaction = factory.newTransaction(namespace, transactionName);
+		transaction.setPropertyValue('paymentId', paymentObj.paymentId);
+		transaction.setPropertyValue('salaryDeposited', paymentObj.salaryDeposited);
+		transaction.setPropertyValue('contibution401K', paymentObj.contibution401K);
+		transaction.setPropertyValue('contibutionMargin', paymentObj.contibutionMargin);
+
+		await businessNetworkConnection.submitTransaction(transaction);
+
+		await businessNetworkConnection.disconnect();
+		return JSON.stringify(transaction);
+	}catch(error){
+		console.log(error);
+	}
+}
+
+exports.hlfMakeMonthlyPayments = hlfMakeMonthlyPayments;
+
 exports.getMonthlyPaymentsMade = async function(request, response){
-	getAllPayments = "select * from manage401K.monthly_wages where m_company_name='"+request.body.companyName+"';";
+	getAllPayments = "select * from manage401K.monthly_wages where m_company_name='"+request.body.companyName+"' order by m_created_date desc;";
 	console.log(getAllPayments);
 	try{
 		appConfig.con.query(getAllPayments, function(error, fetchResult){
 			if(!error){
 				console.log(fetchResult);
 				response.send({message:"Monthly Wages List!", status:1, data:fetchResult});
+			}
+		})
+	}catch(error){
+		console.log(error)
+	}			
+}
+
+exports.getUsersContribution = async function(request, response){
+	getUsersContributionQuery = "select e_name, sum(m_contribution_to_401k) as contri from manage401K.monthly_wages where m_company_name='"+request.body.companyName+"' group by e_name ;";
+	console.log(getUsersContributionQuery);
+	try{
+		appConfig.con.query(getUsersContributionQuery, function(error, fetchResult1){
+			if(!error){
+				console.log(fetchResult1);
+				response.send({message:"401k Wages List!", status:1, data:fetchResult1});
+			}
+		})
+	}catch(error){
+		console.log(error)
+	}			
+}
+
+exports.getDeptEmployeeLists = async function(request, response){
+	getDeptEmployeeListsQuery = "select e_dept, count(*) as count from manage401K.employee_details where e_company_name='"+request.body.companyName+"' group by e_dept;";
+	console.log(getDeptEmployeeListsQuery);
+	try{
+		appConfig.con.query(getDeptEmployeeListsQuery, function(error, fetchResult1){
+			if(!error){
+				console.log(fetchResult1);
+				response.send({message:"401k Wages List!", status:1, data:fetchResult1});
 			}
 		})
 	}catch(error){

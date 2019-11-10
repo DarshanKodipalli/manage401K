@@ -15,6 +15,8 @@ export interface Companies {
   address: string;
   salary: string;
   contri401K: string;
+  transactionId: string;
+  employeeEmail: string;
 }
 
 const ELEMENT_DATA: Companies[] = [
@@ -27,7 +29,7 @@ const ELEMENT_DATA: Companies[] = [
 })
 export class AllPaymentsComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'ssn', 'salary', 'contribution', 'on'];
+  displayedColumns: string[] = ['name', 'ssn', 'employeeEmail', 'salary', 'contribution', 'on', 'transactionId'];
   dataSource:any = new MatTableDataSource<Companies>(ELEMENT_DATA);
   selection = new SelectionModel<Companies>(true, []);
 
@@ -54,6 +56,9 @@ export class AllPaymentsComponent implements OnInit {
             dataItem.e_monthly_pay = dataItem.m_salary/12;
             dataItem.e_monthly_pay = Math.round(dataItem.e_monthly_pay * 100) / 100;
             dataItem.e_deposited_on = dataItem.m_created_date.split("T")[0];
+            if(dataItem.blockchain_transaction_id === null){
+              dataItem.blockchain_transaction_id = "Not stored on Blockchain yet!"
+            }
           })
           console.log(data);
           this.dataSource = new MatTableDataSource<Companies>(data);      
@@ -64,6 +69,5 @@ export class AllPaymentsComponent implements OnInit {
   makePayment(forRecord){
     console.log(forRecord);
     this.allList = true;
-    
   }
 }

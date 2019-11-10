@@ -60,6 +60,12 @@ export class RestService {
   update401K(updateData){
     return this.http.post("http://localhost:3000/employee/updateRecord",updateData,{withCredentials: true});
   }
+  getDashboardPaymentData(companyInfo){
+    return this.http.post("http://localhost:3000/company/usersContri",companyInfo,{withCredentials: true});    
+  }
+  getDeptEmployeeLists(companyInfo){
+    return this.http.post("http://localhost:3000/company/getDeptEmployeeLists",companyInfo,{withCredentials: true});    
+  }
 }
 
 /*curl -X POST -d "{"username":"maneeshd","password":"qwerty","usertype":"customer"}" http://104.194.106.22:80/rideshare/Login*/
