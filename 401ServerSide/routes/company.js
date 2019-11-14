@@ -14,4 +14,7 @@ router.post('/makePayment', companyController.makeMonthlyPayment);
 router.post('/getAllPayments', companyController.getMonthlyPaymentsMade);
 router.post('/usersContri', companyController.getUsersContribution);
 router.post('/getDeptEmployeeLists', companyController.getDeptEmployeeLists);
+router.get('/getEmployeeCompanyList', companyController.getEmployeeCompanyList);
+router.post('/getMonthWisePayment', companyController.getMonthWisePayment);
+router.post('/getEmployeeCompany401KContriList', companyController.getEmployeeCompany401KContriList);
 module.exports = router;

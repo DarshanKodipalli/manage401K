@@ -2,21 +2,21 @@
   <div class="container-fluid">
       <div class="login-wrap">
           <div class="login-html">
-            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label style="color: black" for="tab-1" class="tab">Sign In</label>
-            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" style="color: black" class="tab"></label>
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label style="color: white" for="tab-1" class="tab">Sign In</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" style="color: white" class="tab"></label>
             <div class="login-form">
               <div [hidden]="!otpBoolean" class="sign-in-htm">
                 <div class="group">
-                  <label for="user" class="label" style="color: black">Username</label>
-                  <input id="user" type="text" class="input" placeholder="Enter Username" [(ngModel)]="loginData.username" [ngModelOptions]="{standalone: true}" style="color: black">
+                  <label for="user" class="label" style="color: white">Username</label>
+                  <input id="user" type="text" class="input" placeholder="Enter Username" [(ngModel)]="loginData.username" [ngModelOptions]="{standalone: true}" style="color: white">
                 </div>
                 <div class="group">
-                  <label for="pass" class="label" style="color: black">Password</label>
-                  <input id="pass" type="password" class="input" data-type="password" placeholder="Enter Password" [(ngModel)]="loginData.password" [ngModelOptions]="{standalone: true}" style="color: black">
+                  <label for="pass" class="label" style="color: white">Password</label>
+                  <input id="pass" type="password" class="input" data-type="password" placeholder="Enter Password" [(ngModel)]="loginData.password" [ngModelOptions]="{standalone: true}" style="color: white">
                 </div>
                 <div class="group">
-                  <label for="pass" class="label" style="color: black">Role</label>
-                    <select style="color: black" class="input" [(ngModel)]="loginData.role" [ngModelOptions]="{standalone: true}">
+                  <label for="pass" class="label" style="color: white">Role</label>
+                    <select style="color: white" class="input" [(ngModel)]="loginData.role" [ngModelOptions]="{standalone: true}">
                       <option style="color: black" value="admin">Application Admin</option>
                       <option style="color: black" value="company">Company Representative</option>
                       <option style="color: black" value="employee">Employee</option>
@@ -24,20 +24,20 @@
                 </div>
                 <div class="group">
                   <input id="check" type="checkbox" class="check" checked>
-                  <label for="check" style="color: black"><span class="icon"></span> Keep me Signed in</label>
+                  <label for="check" style="color: white"><span class="icon"></span> Keep me Signed in</label>
                 </div>
                 <div class="group">
                   <input type="submit" class="button" value="Sign In" (click)="login(loginData)">
                 </div>
                 <div class="hr"></div>
                 <div class="foot-lnk">
-                  <a href="#forgot" style="color: black">Forgot Password?</a>
+                  <a href="#forgot" style="color: white">Forgot Password?</a>
                 </div>
               </div>
               <div [hidden]="otpBoolean" style="margin-top: 25%">
                 <div class="group">
-                  <label for="user" class="label" style="color: black">OTP</label>
-                  <input id="user" type="text" class="input" placeholder="Enter OTP Received" [(ngModel)]="loginData.otp" [ngModelOptions]="{standalone: true}" style="color: black">
+                  <label for="user" class="label" style="color: white">OTP</label>
+                  <input id="user" type="text" class="input" placeholder="Enter OTP Received" [(ngModel)]="loginData.otp" [ngModelOptions]="{standalone: true}" style="color: white">
                 </div>
                 <div class="group">
                   <input type="submit" class="button" value="Verify OTP" (click)="submitOTP()">

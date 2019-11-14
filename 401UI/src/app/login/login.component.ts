@@ -14,7 +14,8 @@ export class LoginComponent implements OnInit {
   error:string="";
   private loginData:any = {};
   private signUpData:any = {};
-  private otpBoolean:boolean = true; 
+  private otpBoolean:boolean = true;
+  private productList:any = []; 
   constructor(private app: AppComponent,
             private http: RestService,
             private router: Router ) {

@@ -66,6 +66,15 @@ export class RestService {
   getDeptEmployeeLists(companyInfo){
     return this.http.post("http://localhost:3000/company/getDeptEmployeeLists",companyInfo,{withCredentials: true});    
   }
+  getEmployeeCompanyList(){
+    return this.http.get("http://localhost:3000/company/getEmployeeCompanyList",{withCredentials: true});
+  }
+  getMonthWisePayment(companyInfo){
+    return this.http.post("http://localhost:3000/company/getMonthWisePayment",companyInfo,{withCredentials: true});    
+  }
+  getEmployeeCompany401KContriList(employeeInfo){
+    return this.http.post("http://localhost:3000/company/getEmployeeCompany401KContriList",employeeInfo,{withCredentials: true});    
+  }
 }
 
 /*curl -X POST -d "{"username":"maneeshd","password":"qwerty","usertype":"customer"}" http://104.194.106.22:80/rideshare/Login*/

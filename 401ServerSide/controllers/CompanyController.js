@@ -247,7 +247,7 @@ exports.makeMonthlyPayment = async function(request,response){
 				let transactionName = "makeMonthlyPayment";
 			
 				try{
-					businessNetworkConnection.connect("admin@manifesthlf11")
+					businessNetworkConnection.connect("admin@manifesthlf12")
 					.then((connect)=>{
 						console.log("Connected to Blockchain");
 						const bnDef = businessNetworkConnection.getBusinessNetwork();
@@ -352,6 +352,52 @@ exports.getDeptEmployeeLists = async function(request, response){
 			if(!error){
 				console.log(fetchResult1);
 				response.send({message:"401k Wages List!", status:1, data:fetchResult1});
+			}
+		})
+	}catch(error){
+		console.log(error)
+	}			
+}
+
+exports.getEmployeeCompanyList = async function(request, response){
+	getEmployeeCompanyListQuery = "select count(*) as empCount, e_company_name from manage401K.employee_details group by e_company_name;";
+	console.log(getEmployeeCompanyListQuery);
+	try{
+		appConfig.con.query(getEmployeeCompanyListQuery, function(error, fetchResult1){
+			if(!error){
+				console.log(fetchResult1);
+				response.send({message:"401k Company Employee!", status:1, data:fetchResult1});
+			}
+		})
+	}catch(error){
+		console.log(error)
+	}			
+}
+
+exports.getMonthWisePayment = async function(request, response){
+	getMonthlyPaymentsCompanyListQuery = "select count(*) as count, DATE_FORMAT(m_created_date, '%e %b, %Y') as date from manage401K.monthly_wages where m_company_name = '"+request.body.companyName+"' group by m_created_date";
+	console.log(getMonthlyPaymentsCompanyListQuery);
+	try{
+		appConfig.con.query(getMonthlyPaymentsCompanyListQuery, function(error, fetchResult1){
+			if(!error){
+				console.log(fetchResult1);
+				response.send({message:"401k Company MonthlyRecords!", status:1, data:fetchResult1});
+			}
+		})
+	}catch(error){
+		console.log(error)
+	}			
+}
+
+exports.getEmployeeCompany401KContriList = async function(request, response){
+	console.log(request.body)
+	getEmployeeCompany401KContriListQuery = "select m_company_name, sum(m_contribution_to_401k) as contri, sum(m_salary_monthly) as monthlyPayments from manage401K.monthly_wages where e_email = '"+request.body.companyName+"'  group by m_company_name;";
+	console.log(getEmployeeCompany401KContriListQuery);
+	try{
+		appConfig.con.query(getEmployeeCompany401KContriListQuery, function(error, fetchResult1){
+			if(!error){
+				console.log(fetchResult1);
+				response.send({message:"401kContri Company MonthlyRecords!", status:1, data:fetchResult1});
 			}
 		})
 	}catch(error){
