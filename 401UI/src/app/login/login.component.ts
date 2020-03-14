@@ -3,6 +3,7 @@ import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
 
 import { RestService } from '../services/rest.service';
+declare var particlesJS: any;
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,10 @@ import { RestService } from '../services/rest.service';
 export class LoginComponent implements OnInit {
 
   error:string="";
+   myStyle: object = {};
+    myParams: object = {};
+    width: number = 100;
+    height: number = 100;
   private loginData:any = {};
   private signUpData:any = {};
   private otpBoolean:boolean = true;
@@ -22,6 +27,8 @@ export class LoginComponent implements OnInit {
             }
 
   ngOnInit() {
+    particlesJS.load('particles-js', './src/assets/data/particles.json', null);
+
     this.loginData.username = "darshan.kodipalli@gmail.com";
     this.loginData.password = "mn78ma";
     this.loginData.usertype = "application_admin";    

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ParticlesModule } from 'angular-particle';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
@@ -60,6 +61,7 @@ import { AllPaymentsEmployeeComponent } from './all-employeepayments/allPayments
       apiKey : 'AIzaSyBuJOssBr5xuExQvIigYzLG1nui4AF8TEg',
       libraries : ['geometry'] 
     }),
+    ParticlesModule,
     GooglePlaceModule,
     BrowserModule,
     BrowserAnimationsModule,

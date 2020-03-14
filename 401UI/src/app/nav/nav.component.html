@@ -2,7 +2,7 @@
   <mat-toolbar>
       <button mat-button class="nav-link" routerLink="/dashboard">Dashboard</button>
 
-      <button mat-button [matMenuTriggerFor]="dataexplorer">Operations <mat-icon>arrow_drop_down</mat-icon></button>
+      <button mat-button [matMenuTriggerFor]="dataexplorer">Employee Operations <mat-icon>arrow_drop_down</mat-icon></button>
 
       <mat-menu #dataexplorer="matMenu" >
         <span *ngIf="role=='admin';">
@@ -12,8 +12,6 @@
         <span *ngIf="role=='company';">
           <button class="nav-link" routerLink="/addEmployee" mat-menu-item (click)="hideMenu()"><mat-icon>remove_red_eye</mat-icon>Add Employee</button>
           <button class="nav-link" routerLink="/allEmployees" mat-menu-item (click)="hideMenu()"><mat-icon>person_pin</mat-icon>View Employee</button>        
-          <button class="nav-link" routerLink="/recordPayment" mat-menu-item (click)="hideMenu()"><mat-icon>attach_money</mat-icon>Add Payment</button>        
-          <button class="nav-link" routerLink="/allPayments" mat-menu-item (click)="hideMenu()"><mat-icon>payment</mat-icon>View Payments</button>        
         </span>
         <span *ngIf="role=='employee';">
           <button class="nav-link" routerLink="/allEmployeesEmployee" mat-menu-item (click)="hideMenu()"><mat-icon>person_pin</mat-icon>View Employee</button>        
@@ -21,14 +19,15 @@
         </span>        
       </mat-menu>
     
-      <button mat-button class="nav-link" routerLink="/datamanagement" (click)="hideMenu()">Data Management </button>
-    
-      <button mat-button [matMenuTriggerFor]="reports">Reports <mat-icon>arrow_drop_down</mat-icon></button>
+<!--       <button mat-button class="nav-link" routerLink="/datamanagement" (click)="hideMenu()">Data Management </button>
+ -->    
+    <span  *ngIf="role=='company';">
+      <button mat-button [matMenuTriggerFor]="reports">Transfer Operations<mat-icon>arrow_drop_down</mat-icon></button>
       <mat-menu #reports="matMenu">
-          <button class="nav-link" routerLink="/payment" mat-menu-item (click)="hideMenu()"><mat-icon>bar_chart</mat-icon>Adhoc Reports</button>
-          <button class="nav-link" routerLink="/buyerpayment" mat-menu-item (click)="hideMenu()"><mat-icon>bubble_chart</mat-icon>Canned Reports</button>        
+          <button class="nav-link" routerLink="/recordPayment" mat-menu-item (click)="hideMenu()"><mat-icon>attach_money</mat-icon>Add Payment</button>        
+          <button class="nav-link" routerLink="/allPayments" mat-menu-item (click)="hideMenu()"><mat-icon>payment</mat-icon>View Payments</button>        
       </mat-menu>
-    
+    </span>
       <button mat-button [matMenuTriggerFor]="admin">Help <mat-icon>arrow_drop_down</mat-icon></button>
       <mat-menu #admin="matMenu">
           <button class="nav-link" routerLink="/payment" mat-menu-item (click)="hideMenu()"><mat-icon>help</mat-icon>Help</button>

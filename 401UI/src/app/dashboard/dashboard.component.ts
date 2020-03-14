@@ -27,6 +27,9 @@ export class DashboardComponent implements OnInit {
   public employee:boolean = true;
   public heading:String = "Employeewise Contribution";
   constructor(private _service: WeatherService, private app: AppComponent,private http: RestService) { 
+    if(JSON.parse(localStorage.getItem("login")).companyName === null){
+      window.location.reload();
+    }
     this.http.getDashboardPaymentData({companyName:JSON.parse(localStorage.getItem("login")).companyName}).subscribe(
       (response)=>{
         var dataList = response.json().data;

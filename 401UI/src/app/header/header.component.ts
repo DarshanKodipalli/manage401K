@@ -71,6 +71,8 @@ export class HeaderComponent implements OnInit {
         console.log(response.json())
         localStorage.clear();
         this.route.navigate(['login']);
+        window.location.reload();
+        window.location.reload();
       },(error)=>{
         console.log(error);
       })

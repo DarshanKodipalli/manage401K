@@ -5,8 +5,8 @@ var cryptoUtilities = require("../utils/cryptoUtil");
 var moment = require('moment');
 var nodemailer = require('nodemailer');
 
-const BusinessNetworkConnection = require('composer-client').BusinessNetworkConnection;
-const namespace = "com.network.manifest.assets";
+// const BusinessNetworkConnection = require('composer-client').BusinessNetworkConnection;
+// const namespace = "com.network.manifest.assets";
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -246,7 +246,7 @@ exports.makeMonthlyPayment = async function(request,response){
 				let businessNetworkConnection = new BusinessNetworkConnection();
 				let transactionName = "makeMonthlyPayment";
 			
-				try{
+/*				try{
 					businessNetworkConnection.connect("admin@manifesthlf13")
 					.then((connect)=>{
 						console.log("Connected to Blockchain");
@@ -281,7 +281,7 @@ exports.makeMonthlyPayment = async function(request,response){
 					});	
 				}catch(error){
 					console.log(error);
-				}			
+				}			*/
 			}
 		})
 	}catch(error){
@@ -289,7 +289,7 @@ exports.makeMonthlyPayment = async function(request,response){
 	}			
 }
 
-var hlfMakeMonthlyPayments = async function(paymentObj){
+/*var hlfMakeMonthlyPayments = async function(paymentObj){
 	let businessNetworkConnection = new BusinessNetworkConnection();
 	let transactionName = "makeMonthlyPayment";
 
@@ -311,9 +311,9 @@ var hlfMakeMonthlyPayments = async function(paymentObj){
 		console.log(error);
 	}
 }
-
-exports.hlfMakeMonthlyPayments = hlfMakeMonthlyPayments;
-
+*/
+/*exports.hlfMakeMonthlyPayments = hlfMakeMonthlyPayments;
+*/
 exports.getMonthlyPaymentsMade = async function(request, response){
 	getAllPayments = "select * from manage401K.monthly_wages where m_company_name='"+request.body.companyName+"' order by m_created_date desc;";
 	console.log(getAllPayments);
