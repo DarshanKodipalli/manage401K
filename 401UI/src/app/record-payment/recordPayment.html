@@ -225,11 +225,13 @@
                     <mat-form-field style="width:90%;">
                         <input matInput placeholder="Monthly Contribution Towards 401(K)" [(ngModel)]="esalary401kmonthly" [ngModelOptions]="{standalone: true}" value="">
                     </mat-form-field>
-                    <button class="btn btn-success" (click)="recordPayment()">
-                      Record Payment
-                    </button>    
                   </mat-grid-tile>
               </mat-grid-list>
+              <div style="text-align: center; margin-bottom: 40px;">
+                <button class="btn btn-success" (click)="recordPayment()">
+                  Record Payment
+                </button>    
+              </div>
             <!-- <mat-grid-list cols="2" rowHeight="100px">
               <mat-grid-tile>
                   <mat-form-field style="width:90%;">

@@ -19,21 +19,22 @@ exports.adminLogin = async function(request, response){
 	console.log("Admin Login Called");
 	console.log(request.body);
 	if(request.body.username){
-		if(request.body.username === "Darshan.kodipalli@gmail.com"){
+		if(request.body.username === "admin@manage401k.com"){
 			if(request.body.password === "password"){
 				console.log("Correct Credentials");
 				var loginToken = uuidv1();
 				let emailHash = crypto.createHash('md5').update(request.body.username).digest("hex");
 				let tokenHash = crypto.createHash('md5').update(loginToken).digest("hex");
-				var otp = 12345;
-				var insertLoginData = "insert into manage401K.login(l_email_id, l_access_token, l_login_date, o_otp) values ('"+emailHash+"','"+tokenHash+"','"+currentTimestamp+"','"+otp+"');";
+				var insertLoginData = "insert into manage401K.login(l_email_id, l_access_token, l_login_date) values ('"+emailHash+"','"+tokenHash+"','"+currentTimestamp+"');";
 				console.log(insertLoginData);
 				try{
 					appConfig.con.query(insertLoginData, function(error, loginResult){
 						if(!error){
 					  		console.log(loginResult);
 					  		response.send({message:"Login Successful", status:1, loginToken:loginToken, role:"admin"});
-					  	}
+					  	}else{
+							  console.log(error);
+						  }
 					})
 				}catch(err){
 					console.log("Error in executing the query");

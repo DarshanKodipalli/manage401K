@@ -46,9 +46,9 @@ CREATE TABLE IF NOT EXISTS monthly_wages(
     m_contribution_to_401k DOUBLE NOT NULL,
     m_created_date DATE NOT NULL,
     m_created_by VARCHAR(512) NOT NULL,
+    m_salary_monthly int(11) NOT NULL,
     e_email VARCHAR(512) NOT NULL,
     e_name VARCHAR(512) NOT NULL,
-    blockchain_transaction_id VARCHAR(512) NOT NULL,
     m_status int(11) NOT NULL
 );
 
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS login(
     l_email_id VARCHAR(512) NOT NULL,
     l_access_token VARCHAR(512) NOT NULL,
     l_login_date DATETIME NOT NULL,
-    l_otp int(11) NOT NULL
+    l_otp int(11) NOT NULL DEFAULT 123
 );
 
 COMMIT;

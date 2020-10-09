@@ -64,11 +64,13 @@
                                 <mat-form-field style="width:90%;">
                                   <input matInput placeholder="Primary Contact Email" [(ngModel)]="companyData.email" [ngModelOptions]="{standalone: true}">
                                 </mat-form-field>
-                            <button class="btn btn-primary" (click)="addCompany(companyData)" style="float: right;">
-                                Add Company
-                            </button>
                             </mat-grid-tile>                                                        
                           </mat-grid-list>
+                          <div style="text-align: center;margin-bottom: 40px;">
+                            <button class="btn btn-primary" (click)="addCompany(companyData)">
+                              Add Company
+                            </button>  
+                          </div>
                       </form>
                   </div>
                 </div>

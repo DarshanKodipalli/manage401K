@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     particlesJS.load('particles-js', './src/assets/data/particles.json', null);
 
-    this.loginData.username = "darshan.kodipalli@gmail.com";
-    this.loginData.password = "mn78ma";
+    this.loginData.username = "admin@manage401k.com";
+    this.loginData.password = "password";
     this.loginData.usertype = "application_admin";    
   }
 

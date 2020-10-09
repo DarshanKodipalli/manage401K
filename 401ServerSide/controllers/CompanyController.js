@@ -12,7 +12,7 @@ var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'ride7.share7@gmail.com',
-        pass: 'rideShareAccount@7'
+        pass: 'BZYbf68JEWsXGDC'
        }
    });
 
@@ -43,12 +43,14 @@ exports.companyLogin = async function(request, response){
 		                if(err)
 		                  console.log(err)
 		                else{
-							console.log(info);
-							var loginRecord = "insert into manage401K.login(l_email_id, l_access_token, l_login_date, o_otp) values ('"+emailHash+"','"+tokenHash+"','"+currentTimestamp+"','"+otp+"')";
+							console.log("Info:"+info);
+							var loginRecord = "insert into manage401K.login(l_email_id, l_access_token, l_login_date, l_otp) values ('"+emailHash+"','"+tokenHash+"','"+currentTimestamp+"','"+otp+"')";
 							appConfig.con.query(loginRecord, function(error, loginResult){
 								if(!error){
-									  console.log(loginResult);
+									  console.log("loginResult: ");
 									  response.send({message:"Login Successful", status:1, loginToken:loginToken, role:"company", companyName:recordDetail[0].c_name});
+								  }else{
+									  console.log(error);
 								  }
 							})						
 						}
@@ -65,8 +67,8 @@ exports.checkOTP = async function(request, response){
 	console.log(searchRecord);
 	appConfig.con.query(searchRecord, function(error,searchResult){
 		if(!error){
-			console.log(searchResult[0].o_otp + " "+request.body.otp);
-			if(searchResult[0].o_otp == request.body.otp){
+			console.log(searchResult[0].l_otp + " "+request.body.otp);
+			if(searchResult[0].l_otp == request.body.otp){
 				console.log("Correct OTP");
 				response.send({message:"Correct OTP", status:1});				
 			}
@@ -239,81 +241,15 @@ exports.makeMonthlyPayment = async function(request,response){
 		appConfig.con.query(makeMonthlyPayment, function(error, fetchResult){
 			if(!error){
 				console.log(fetchResult.insertId);
-				var blockchainObject = {};
-				blockchainObject.$class = "com.network.manifest.assets.makeMonthlyPayment";
-				var paymentId = request.body.m_company_name+"_"+ Math.floor(100000 + Math.random() * 900000)+" ";
-
-				let businessNetworkConnection = new BusinessNetworkConnection();
-				let transactionName = "makeMonthlyPayment";
-			
-/*				try{
-					businessNetworkConnection.connect("admin@manifesthlf13")
-					.then((connect)=>{
-						console.log("Connected to Blockchain");
-						const bnDef = businessNetworkConnection.getBusinessNetwork();
-						const factory = bnDef.getFactory();
-						let transaction = factory.newTransaction(namespace, transactionName);
-						transaction.setPropertyValue('paymentId', paymentId);
-						transaction.setPropertyValue('salaryDeposited', request.body.m_salary_monthly);
-						transaction.setPropertyValue('contibution401K', parseFloat(request.body.m_contribution_to_401k));
-						transaction.setPropertyValue('contibutionMargin', request.body.e401k);
-				
-						businessNetworkConnection.submitTransaction(transaction)
-						.then((transactionSubmitted)=>{
-							console.log("Transaction Submitted");
-							businessNetworkConnection.disconnect()
-							.then((disconnected)=>{
-								console.log('Business network Disconnected!');
-								let transactionId = transaction.transactionId;
-								console.log("transactionId: ");	
-								console.log(transactionId+"");
-								updateMonthlyWagesStatement = "Update manage401K.monthly_wages set blockchain_transaction_id = '"+transactionId+"' where m_id = "+fetchResult.insertId+";";	
-								console.log(updateMonthlyWagesStatement)
-								appConfig.con.query(updateMonthlyWagesStatement, function(error, fetchResult){
-									if(!error){
-										response.send({message:"Payment Recorded!", status:1, transactionId:transactionId});								
-									}else{
-										console.log(error)
-									}
-								})		
-							})
-						})	
-					});	
-				}catch(error){
-					console.log(error);
-				}			*/
+				response.send({message:"Payment Recorded!", status:1});								
+			}else{
+				console.log(error);
 			}
-		})
-	}catch(error){
-		console.log(error)
-	}			
-}
-
-/*var hlfMakeMonthlyPayments = async function(paymentObj){
-	let businessNetworkConnection = new BusinessNetworkConnection();
-	let transactionName = "makeMonthlyPayment";
-
-	try{
-		await businessNetworkConnection.connect("admin@manifesthlf11");
-		const bnDef = businessNetworkConnection.getBusinessNetwork();
-		const factory = bnDef.getFactory();
-		let transaction = factory.newTransaction(namespace, transactionName);
-		transaction.setPropertyValue('paymentId', paymentObj.paymentId);
-		transaction.setPropertyValue('salaryDeposited', paymentObj.salaryDeposited);
-		transaction.setPropertyValue('contibution401K', paymentObj.contibution401K);
-		transaction.setPropertyValue('contibutionMargin', paymentObj.contibutionMargin);
-
-		await businessNetworkConnection.submitTransaction(transaction);
-
-		await businessNetworkConnection.disconnect();
-		return JSON.stringify(transaction);
+		})	
 	}catch(error){
 		console.log(error);
 	}
 }
-*/
-/*exports.hlfMakeMonthlyPayments = hlfMakeMonthlyPayments;
-*/
 exports.getMonthlyPaymentsMade = async function(request, response){
 	getAllPayments = "select * from manage401K.monthly_wages where m_company_name='"+request.body.companyName+"' order by m_created_date desc;";
 	console.log(getAllPayments);

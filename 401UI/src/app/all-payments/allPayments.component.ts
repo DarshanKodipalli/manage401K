@@ -29,7 +29,7 @@ const ELEMENT_DATA: Companies[] = [
 })
 export class AllPaymentsComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'ssn', 'employeeEmail', 'salary', 'contribution', 'on', 'transactionId'];
+  displayedColumns: string[] = ['name', 'ssn', 'employeeEmail', 'salary', 'contribution', 'on'];
   dataSource:any = new MatTableDataSource<Companies>(ELEMENT_DATA);
   selection = new SelectionModel<Companies>(true, []);
 

@@ -9,7 +9,7 @@ var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'ride7.share7@gmail.com',
-        pass: 'rideShareAccount@7'
+        pass: 'BZYbf68JEWsXGDC'
        }
    });
 
@@ -41,7 +41,7 @@ exports.EmployeeLogin = async function(request, response){
 		                  console.log(err)
 		                else{
 							console.log(info);
-							var loginRecord = "insert into manage401K.login(l_email_id, l_access_token, l_login_date, o_otp) values ('"+emailHash+"','"+tokenHash+"','"+currentTimestamp+"','"+otp+"')";
+							var loginRecord = "insert into manage401K.login(l_email_id, l_access_token, l_login_date, l_otp) values ('"+emailHash+"','"+tokenHash+"','"+currentTimestamp+"','"+otp+"')";
 							console.log(loginRecord);
 							appConfig.con.query(loginRecord, function(error, loginResult){
 								if(!error){
@@ -62,7 +62,7 @@ exports.checkOTP = async function(request, response){
 	console.log(searchRecord);
 	appConfig.con.query(searchRecord, function(error,searchResult){
 		if(!error){
-			console.log(searchResult[0].o_otp + " "+request.body.otp);
+			console.log(searchResult[0].l_otp + " "+request.body.otp);
 			if(searchResult[0].o_otp == request.body.otp){
 				console.log("Correct OTP");
 				response.send({message:"Correct OTP", status:1});				

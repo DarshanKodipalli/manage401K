@@ -116,8 +116,8 @@ export class RecordPaymentComponent implements OnInit {
         (response)=>{
           console.log(response.json());
           Swal(
-            'Payment Recorded, TransactionId: ',
-            response.json().transactionId
+            'Payment Recorded for: '+
+            this.ename
           ).then((newResult)=>{
              this.route.navigate(['/allPayments']);
           })   
