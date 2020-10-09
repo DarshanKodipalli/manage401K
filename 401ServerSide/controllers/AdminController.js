@@ -6,10 +6,13 @@ var moment = require('moment');
 var nodemailer = require('nodemailer');
 
 var transporter = nodemailer.createTransport({
-    service: 'gmail',
+	service: 'gmail',
+	host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,	
     auth: {
         user: 'ride7.share7@gmail.com',
-        pass: 'rideShareAccount@7'
+        pass: 'BZYbf68JEWsXGDC'
        }
 });
 
@@ -136,6 +139,8 @@ exports.addCompany = async function(request, response){
 										             });													
 													console.log(insertResult);
 													response.send({message:"Company Added Successfully!", status:1, tempPasswordCreated:randomString});
+												}else{
+													console.log(error);
 												}
 											})
 										}catch(error){

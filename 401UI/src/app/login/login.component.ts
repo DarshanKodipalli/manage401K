@@ -59,13 +59,13 @@ export class LoginComponent implements OnInit {
           loginData.role = response.json().role;
           console.log(this.loginData);
           this.loginData.companyName = response.json().companyName;
-          this.otpBoolean = false;
-/*          localStorage.setItem("login",JSON.stringify(loginData));
-          this.router.navigate(['/dashboard']);*/
+          localStorage.setItem("login",JSON.stringify(this.loginData));
+          this.router.navigate(['/dashboard']);  
         },(error)=>{
           console.log(error);
         })
-    }else{
+        
+      }else{
       loginData.role = "Employee";
       console.log("Employee")
       this.http.employeeSignIn(this.loginData).subscribe(
@@ -73,7 +73,8 @@ export class LoginComponent implements OnInit {
           console.log(response.json());
           loginData.role = response.json().role;
           console.log(this.loginData);
-          this.otpBoolean = false;
+          localStorage.setItem("login",JSON.stringify(this.loginData));
+          this.router.navigate(['/dashboard']);  
         },(error)=>{
           console.log(error);
         })

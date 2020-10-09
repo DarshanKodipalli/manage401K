@@ -54,7 +54,7 @@ export class CreateEmployeeComponent implements OnInit {
           (response)=>{
             console.log(response.json());
             Swal(
-              'Employee Created!',
+              'Employee Created! Password: '+response.json().tempPasswordCreated,
               'Success'
             ).then((newResult)=>{
                this.rout.navigate(['/allEmployees']);

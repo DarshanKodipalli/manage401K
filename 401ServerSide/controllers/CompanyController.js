@@ -124,7 +124,7 @@ exports.addEmployee = async function(request, response){
 						else
 						  console.log(info);
 					 });													
-					response.send({message:"Company Added Successfully!", status:1, tempPasswordCreated:randomString});					
+					response.send({message:"Employee Added Successfully!", status:1, tempPasswordCreated:randomString});					
 				}
 			})
 		}

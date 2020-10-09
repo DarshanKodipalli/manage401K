@@ -55,7 +55,7 @@ export class CreateCompanyComponent implements OnInit {
             console.log(response.json());
             Swal(
               'Company Created! Login with the Password: '+response.json().tempPasswordCreated+'',
-              'Success'
+              'Please this this password'
             ).then((newResult)=>{
               this.rout.navigate(['/allCompanies']);
             })

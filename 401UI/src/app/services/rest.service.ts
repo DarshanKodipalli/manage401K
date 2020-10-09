@@ -10,70 +10,71 @@ export class RestService {
   constructor(private http: Http) {
       this.loginData = localStorage.getItem("login")  
   }
-
+//shttp://ec2-18-224-96-94.us-east-2.compute.amazonaws.coms:3001/
   SignUp(signUpData){
-    return this.http.post("http://192.168.0.21:3000/signup",signUpData,{withCredentials: true});
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/signup",signUpData);
   }  
   signIn(signInData){
-    return this.http.post("http://localhost:3000/login", signInData,{withCredentials: true});
+    console.log("Loggoing in");
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/login", signInData);
   }
   companySignIn(signInCompanyData){
-    return this.http.post("http://localhost:3000/company/companyLogin", signInCompanyData,{withCredentials: true});    
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/company/companyLogin", signInCompanyData);    
   }
   employeeSignIn(employeeSignInData){
-    return this.http.post("http://localhost:3000/employee/employeeLogin", employeeSignInData,{withCredentials: true});    
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/employee/employeeLogin", employeeSignInData);    
   }
   checkOTPCompany(otp){
     console.log(otp);
-    return this.http.post("http://localhost:3000/company/checkOTP", otp,{withCredentials: true});    
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/company/checkOTP", otp);    
   }
   signOut(logoutData){
-    return this.http.post("http://localhost:3000/logout", logoutData,{withCredentials: true});
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/logout", logoutData);
   }
   addCompany(companyData){
     console.log(companyData);
-    return this.http.post("http://localhost:3000/addCompany", companyData,{withCredentials: true});
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/addCompany", companyData);
   }
   addEmployee(employeeData){
     console.log(employeeData);
-    return this.http.post("http://localhost:3000/company/addEmployee", employeeData,{withCredentials: true});
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/company/addEmployee", employeeData);
   }
   getEmployees(companyObj){
-    return this.http.post("http://localhost:3000/company/getEmployees",companyObj,{withCredentials: true});
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/company/getEmployees",companyObj);
   }
   getEmployeesForEmployee(companyObj){
-    return this.http.post("http://localhost:3000/employee/getEmployees",companyObj,{withCredentials: true});
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/employee/getEmployees",companyObj);
   }
   getPayments(paymentObj){
-    return this.http.post("http://localhost:3000/company/getAllPayments",paymentObj,{withCredentials: true});
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/company/getAllPayments",paymentObj);
   }  
   getPaymentsEmployee(paymentEmployeeObj){
     console.log(paymentEmployeeObj);
-    return this.http.post("http://localhost:3000/employee/getAllEmployeePayments",paymentEmployeeObj,{withCredentials: true});
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/employee/getAllEmployeePayments",paymentEmployeeObj);
   }
   getCompanies(){
-    return this.http.get("http://localhost:3000/getCompanies",{withCredentials: true});
+    return this.http.get("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/getCompanies");
   }
   recordPayment(paymentData){
-    return this.http.post("http://localhost:3000/company/makePayment",paymentData,{withCredentials: true});
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/company/makePayment",paymentData);
   }
   update401K(updateData){
-    return this.http.post("http://localhost:3000/employee/updateRecord",updateData,{withCredentials: true});
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/employee/updateRecord",updateData);
   }
   getDashboardPaymentData(companyInfo){
-    return this.http.post("http://localhost:3000/company/usersContri",companyInfo,{withCredentials: true});    
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/company/usersContri",companyInfo);    
   }
   getDeptEmployeeLists(companyInfo){
-    return this.http.post("http://localhost:3000/company/getDeptEmployeeLists",companyInfo,{withCredentials: true});    
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/company/getDeptEmployeeLists",companyInfo);    
   }
   getEmployeeCompanyList(){
-    return this.http.get("http://localhost:3000/company/getEmployeeCompanyList",{withCredentials: true});
+    return this.http.get("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/company/getEmployeeCompanyList");
   }
   getMonthWisePayment(companyInfo){
-    return this.http.post("http://localhost:3000/company/getMonthWisePayment",companyInfo,{withCredentials: true});    
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/company/getMonthWisePayment",companyInfo);    
   }
   getEmployeeCompany401KContriList(employeeInfo){
-    return this.http.post("http://localhost:3000/company/getEmployeeCompany401KContriList",employeeInfo,{withCredentials: true});    
+    return this.http.post("http://ec2-18-224-96-94.us-east-2.compute.amazonaws.com:3001/company/getEmployeeCompany401KContriList",employeeInfo);    
   }
 }
 
